@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>灵心雨下载站 | 梦幻极速资源库</title>
-    <!-- 引入字体与图标 -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <title>灵心雨下载站 | 自动扫描文件夹1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -23,7 +22,7 @@
             position: relative;
         }
 
-        /* ========= 灵心雨特效：动态雨丝 + 流光粒子系统 ========= */
+        /* 灵心雨特效：动态雨丝 */
         .rain-container {
             position: fixed;
             top: 0;
@@ -60,17 +59,9 @@
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-20vh) rotate(0deg);
-                opacity: 0.2;
-            }
-            80% {
-                opacity: 0.9;
-            }
-            100% {
-                transform: translateY(100vh) rotate(8deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-20vh) rotate(0deg); opacity: 0.2; }
+            80% { opacity: 0.9; }
+            100% { transform: translateY(100vh) rotate(8deg); opacity: 0; }
         }
 
         /* 浮游光尘 */
@@ -101,7 +92,6 @@
             padding: 2rem 2rem 4rem;
         }
 
-        /* 头部区域 */
         .hero {
             text-align: center;
             margin-bottom: 2.5rem;
@@ -120,12 +110,10 @@
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            letter-spacing: -0.3px;
         }
 
         .hero h1 i {
             background: none;
-            -webkit-background-clip: unset;
             color: #88b2ff;
             margin-right: 10px;
         }
@@ -133,10 +121,21 @@
         .hero p {
             margin-top: 0.7rem;
             opacity: 0.85;
-            font-weight: 400;
         }
 
-        /* 搜索区 */
+        .folder-badge {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            border: 1px solid rgba(90, 160, 255, 0.4);
+        }
+
+        /* 搜索栏 */
         .search-area {
             margin: 1.8rem 0 2rem;
             display: flex;
@@ -154,19 +153,11 @@
             max-width: 580px;
             border: 1px solid rgba(100, 170, 255, 0.6);
             transition: all 0.25s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .search-box:focus-within {
             border-color: #5d9eff;
             box-shadow: 0 0 20px rgba(75, 140, 255, 0.5);
-            transform: scale(1.01);
-        }
-
-        .search-box i {
-            color: #9bbaff;
-            font-size: 1.3rem;
-            margin-right: 12px;
         }
 
         .search-box input {
@@ -174,15 +165,13 @@
             border: none;
             flex: 1;
             padding: 14px 0;
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: #f0f4ff;
             outline: none;
-            font-weight: 500;
         }
 
         .search-box input::placeholder {
             color: #a6bfef;
-            font-weight: 400;
         }
 
         .search-box button {
@@ -192,26 +181,20 @@
             border-radius: 50px;
             color: white;
             font-weight: 600;
-            font-size: 0.95rem;
             cursor: pointer;
             transition: 0.2s;
-            margin-left: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
         .search-box button:hover {
             background: linear-gradient(110deg, #5b8eff, #3f6fdf);
             transform: scale(0.97);
-            cursor: pointer;
         }
 
-        /* 结果统计 */
         .stats {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin: 10px 10px 20px;
-            flex-wrap: wrap;
         }
 
         .result-count {
@@ -219,7 +202,6 @@
             padding: 6px 18px;
             border-radius: 40px;
             font-size: 0.85rem;
-            font-weight: 500;
             backdrop-filter: blur(4px);
         }
 
@@ -228,18 +210,15 @@
             border: 1px solid rgba(90, 150, 255, 0.5);
             padding: 6px 16px;
             border-radius: 40px;
-            font-size: 0.8rem;
             cursor: pointer;
             transition: 0.2s;
-            font-weight: 500;
         }
 
         .reset-btn:hover {
             background: rgba(60, 110, 220, 0.6);
-            border-color: #88aaff;
         }
 
-        /* 应用卡片网格 */
+        /* 卡片网格 */
         .apps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -247,7 +226,6 @@
             margin-top: 1rem;
         }
 
-        /* 卡片设计 */
         .app-card {
             background: rgba(18, 28, 45, 0.65);
             backdrop-filter: blur(12px);
@@ -255,14 +233,12 @@
             border: 1px solid rgba(80, 140, 230, 0.4);
             padding: 1.5rem;
             transition: all 0.25s ease-in-out;
-            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.4);
         }
 
         .app-card:hover {
             transform: translateY(-6px);
             border-color: rgba(110, 170, 255, 0.7);
             background: rgba(25, 38, 60, 0.75);
-            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
         .app-header {
@@ -282,13 +258,11 @@
             justify-content: center;
             font-size: 2rem;
             color: #b7d0ff;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .app-name {
             font-size: 1.55rem;
             font-weight: 700;
-            letter-spacing: -0.3px;
             background: linear-gradient(135deg, #FFFFFF, #c0dcff);
             background-clip: text;
             -webkit-background-clip: text;
@@ -298,12 +272,9 @@
         .app-info {
             margin: 12px 0 20px 0;
             padding-left: 6px;
-            font-size: 0.9rem;
-            line-height: 1.45;
-            opacity: 0.85;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
 
         .info-line {
@@ -329,13 +300,11 @@
             justify-content: space-between;
             padding: 4px 4px 4px 20px;
             border: 1px solid rgba(80, 150, 255, 0.5);
-            transition: all 0.2s;
         }
 
         .download-text {
             font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-size: 0.85rem;
             color: #e2efff;
         }
 
@@ -349,14 +318,11 @@
             font-size: 0.85rem;
             cursor: pointer;
             transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            font-family: inherit;
         }
 
         .download-btn:hover {
             background: linear-gradient(100deg, #4683ff, #2a5be0);
             transform: scale(0.96);
-            cursor: pointer;
         }
 
         .no-result {
@@ -365,8 +331,11 @@
             padding: 3rem;
             background: rgba(0, 0, 0, 0.25);
             border-radius: 2rem;
-            backdrop-filter: blur(8px);
-            margin-top: 2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
         }
 
         footer {
@@ -377,250 +346,231 @@
         }
 
         @media (max-width: 760px) {
-            .wrapper {
-                padding: 1rem;
-            }
-            .app-name {
-                font-size: 1.3rem;
-            }
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
+            .wrapper { padding: 1rem; }
+            .app-name { font-size: 1.3rem; }
+            .apps-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- 雨滴特效容器 -->
 <div class="rain-container" id="rainContainer"></div>
-<!-- 光尘粒子会通过js动态添加 -->
 
 <div class="wrapper">
     <div class="hero">
         <h1><i class="fas fa-cloud-rain"></i> 灵心雨下载站</h1>
         <p>轻灵如雨 · 心之所向 · 极速资源库</p>
+        <div class="folder-badge">
+            <i class="fas fa-folder-open"></i> 数据源：./文件夹1/ （自动扫描，无内置）
+        </div>
     </div>
 
     <div class="search-area">
         <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchInput" placeholder="搜索应用名称... 例如: 灵音、光影、极速笔记" autocomplete="off">
+            <input type="text" id="searchInput" placeholder="搜索应用名称..." autocomplete="off">
             <button id="searchBtn"><i class="fas fa-arrow-right"></i> 检索</button>
         </div>
     </div>
 
     <div class="stats">
-        <div class="result-count" id="resultCount">✨ 共 0 款应用</div>
+        <div class="result-count" id="resultCount">✨ 正在扫描文件夹1...</div>
         <div class="reset-btn" id="resetBtn"><i class="fas fa-sync-alt"></i> 显示全部</div>
     </div>
 
     <div id="appsContainer" class="apps-grid">
-        <!-- 动态渲染应用卡片 -->
+        <div class="loading"><i class="fas fa-spinner fa-pulse"></i> 正在读取 ./文件夹1/ 中的文件...</div>
     </div>
+
     <footer>
-        <i class="fas fa-feather-alt"></i> 灵心雨境 · 每滴雨都承载着创意 | 点击下载长条即可获取应用
+        <i class="fas fa-feather-alt"></i> 灵心雨境 · 自动扫描「文件夹1」目录 | 所有应用均来自该文件夹内的真实文件
     </footer>
 </div>
 
 <script>
-    // ======================= 应用数据库 (完全独立外部文件映射，非内置下载网页自身) =======================
-    // 所有下载链接都是指向预设的文件夹目录中的真实文件(示例均使用有效的公共测试文件或演示文件，但为了演示下载功能且不报错，
-    // 我们使用了几个知名免费开源软件镜像链接，代表“文件夹1/目录”里的资源，但确保不下载本网页。
-    // 你可以将这些URL改成自己服务器 /folder/ 下的真实文件。完全符合要求“应用都在文件夹1里面，下载必须绑定在这里面”
-    // 以下数据模拟了“文件夹一”目录中的各种应用，每个应用均有独立的下载地址（zip/exe/dmg示例,确保点击只下载应用，不是网页）
-    const appsDatabase = [
-        {
-            id: 1,
-            name: "灵韵音频工坊",
-            version: "v3.2.0",
-            size: "48.2 MB",
-            category: "音频编辑",
-            description: "AI智能降噪，多轨道混音，雨声环绕特效制作",
-            downloadUrl: "https://github.com/audacity/audacity/releases/download/Audacity-3.4.2/audacity-win-3.4.2-64bit.zip",
-            icon: "fa-music"
-        },
-        {
-            id: 2,
-            name: "极速笔记·灵",
-            version: "v2.1.4",
-            size: "15.7 MB",
-            category: "办公效率",
-            description: "沉浸式雨声写作，云端同步，Markdown 完美支持",
-            downloadUrl: "https://github.com/ylixir/Notepark/releases/download/v1.0/Notepark-Setup.exe",
-            icon: "fa-pen-fancy"
-        },
-        {
-            id: 3,
-            name: "光影魔术师Pro",
-            version: "v5.0.1",
-            size: "128 MB",
-            category: "图像处理",
-            description: "AI修图，雨滴滤镜艺术特效，一键调色",
-            downloadUrl: "https://github.com/GIMP/gimp/releases/download/GIMP_2_10_36/gimp-2.10.36-setup-1.exe",
-            icon: "fa-image"
-        },
-        {
-            id: 4,
-            name: "雨痕代码编辑器",
-            version: "v1.8.3",
-            size: "86.3 MB",
-            category: "开发工具",
-            description: "轻量级IDE，支持智能感知，雨夜主题高亮",
-            downloadUrl: "https://github.com/microsoft/vscode/releases/download/1.87.2/VSCodeUserSetup-x64-1.87.2.exe",
-            icon: "fa-code"
-        },
-        {
-            id: 5,
-            name: "星尘浏览器",
-            version: "v4.6.0",
-            size: "92.1 MB",
-            category: "网络工具",
-            description: "极速内核，无广告，灵心雨定制起始页",
-            downloadUrl: "https://github.com/ungoogled-software/ungoogled-chromium/releases/download/122.0.6261.129-1/ungoogled-chromium_122.0.6261.129-1.1_installer-x64.exe",
-            icon: "fa-globe"
-        },
-        {
-            id: 6,
-            name: "灵犀视频剪辑",
-            version: "v2.3.7",
-            size: "312 MB",
-            category: "视频制作",
-            description: "智能抠像，雨丝转场特效，4K渲染",
-            downloadUrl: "https://github.com/olive-editor/olive/releases/download/0.2.0/olive-0.2.0-Windows-x86_64.zip",
-            icon: "fa-video"
-        },
-        {
-            id: 7,
-            name: "清雨阅读器",
-            version: "v1.2.5",
-            size: "8.9 MB",
-            category: "阅读工具",
-            description: "极简界面，护眼雨感模式，支持epub/pdf",
-            downloadUrl: "https://github.com/koreader/koreader/releases/download/v2024.04/koreader-win64-v2024.04.zip",
-            icon: "fa-book-open"
-        },
-        {
-            id: 8,
-            name: "雨梦压缩大师",
-            version: "v3.0",
-            size: "4.2 MB",
-            category: "系统工具",
-            description: "高压缩比，支持多种格式，灵心雨皮肤",
-            downloadUrl: "https://github.com/mcmilk/7-Zip-zstd/releases/download/v22.01-v1.5.5/7z22.01-zstd-x64.exe",
-            icon: "fa-file-archive"
+    // ==============================================
+    // 灵心雨下载站 - 完全无内置应用
+    // 所有数据通过 scan.php 动态扫描 ./文件夹1/ 获取
+    // ==============================================
+
+    let allApps = [];
+    let currentApps = [];
+
+    // 从后端获取文件夹1中的文件列表
+    async function fetchAppsFromFolder1() {
+        try {
+            const response = await fetch('./scan.php?_t=' + Date.now());
+            if (!response.ok) throw new Error('网络错误');
+            const data = await response.json();
+            
+            // 检查是否有错误
+            if (data.error) {
+                showError(data.error);
+                return;
+            }
+            
+            if (Array.isArray(data) && data.length === 0) {
+                showEmpty();
+            } else if (Array.isArray(data)) {
+                allApps = data;
+                currentApps = [...allApps];
+                renderApps(currentApps);
+            } else {
+                showError('数据格式错误');
+            }
+        } catch (error) {
+            console.error('获取失败:', error);
+            showError('无法连接后端服务，请确保 scan.php 文件存在且 ./文件夹1/ 目录已创建');
         }
-    ];
+    }
 
-    // 当前展示的数据 (经过搜索过滤)
-    let currentApps = [...appsDatabase];
+    function showError(msg) {
+        document.getElementById('appsContainer').innerHTML = `
+            <div class="no-result">
+                <i class="fas fa-exclamation-triangle"></i><br>
+                ${msg}<br><br>
+                <small>请确保：<br>
+                1. 在同目录下创建「文件夹1」文件夹<br>
+                2. 在「文件夹1」中放入应用文件（.zip/.exe等）<br>
+                3. scan.php 文件与当前页面在同一目录</small>
+            </div>
+        `;
+        document.getElementById('resultCount').innerHTML = `⚠️ 扫描失败`;
+    }
 
-    // DOM 元素
-    const searchInput = document.getElementById('searchInput');
-    const searchBtn = document.getElementById('searchBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const appsContainer = document.getElementById('appsContainer');
-    const resultCountSpan = document.getElementById('resultCount');
+    function showEmpty() {
+        document.getElementById('appsContainer').innerHTML = `
+            <div class="no-result">
+                <i class="fas fa-folder-open"></i><br>
+                「文件夹1」中没有找到任何文件<br><br>
+                <small>请在 ./文件夹1/ 目录中放入您的应用文件</small>
+            </div>
+        `;
+        document.getElementById('resultCount').innerHTML = `📁 文件夹1为空 (0个文件)`;
+    }
 
-    // 渲染应用列表 (每个卡片底部包含一个长条下载栏，显示“下载”二字)
+    // 渲染应用卡片
     function renderApps(apps) {
-        if (!appsContainer) return;
-        if (apps.length === 0) {
-            appsContainer.innerHTML = `<div class="no-result"><i class="fas fa-cloud-moon"></i> 没有找到相关应用... 试试其他关键词吧 🌧️</div>`;
-            resultCountSpan.innerHTML = `✨ 共 0 款应用`;
+        const container = document.getElementById('appsContainer');
+        if (!apps.length) {
+            container.innerHTML = `<div class="no-result"><i class="fas fa-cloud-moon"></i> 没有找到匹配的应用，试试其他关键词吧 🌧️</div>`;
+            document.getElementById('resultCount').innerHTML = `✨ 共 0 款应用`;
             return;
         }
 
         let html = '';
         for (let app of apps) {
-            // 安全处理下载链接 (确保不是本页空白或javascript)
-            let safeUrl = app.downloadUrl && app.downloadUrl.startsWith('http') ? app.downloadUrl : '#';
+            // 根据文件名后缀猜测图标
+            let iconClass = 'fa-download';
+            const ext = (app.filename || '').split('.').pop().toLowerCase();
+            const iconMap = {
+                'zip': 'fa-file-archive', 'rar': 'fa-file-archive', '7z': 'fa-file-archive',
+                'exe': 'fa-windows', 'msi': 'fa-windows',
+                'dmg': 'fa-apple', 'pkg': 'fa-apple',
+                'apk': 'fa-android',
+                'pdf': 'fa-file-pdf', 'mp3': 'fa-music', 'mp4': 'fa-video',
+                'jpg': 'fa-image', 'png': 'fa-image', 'gif': 'fa-image'
+            };
+            iconClass = iconMap[ext] || 'fa-download';
+            
             html += `
-                <div class="app-card" data-id="${app.id}">
+                <div class="app-card">
                     <div class="app-header">
-                        <div class="app-icon"><i class="fas ${app.icon}"></i></div>
+                        <div class="app-icon"><i class="fas ${iconClass}"></i></div>
                         <div class="app-name">${escapeHtml(app.name)}</div>
                     </div>
                     <div class="app-info">
                         <div class="info-line"><i class="fas fa-tag"></i> <span>版本: ${escapeHtml(app.version)}</span></div>
                         <div class="info-line"><i class="fas fa-hdd"></i> <span>大小: ${escapeHtml(app.size)}</span></div>
-                        <div class="info-line"><i class="fas fa-folder-open"></i> <span>类别: ${escapeHtml(app.category)}</span></div>
+                        <div class="info-line"><i class="fas fa-folder-open"></i> <span>来源: 文件夹1</span></div>
+                        <div class="info-line"><i class="fas fa-file"></i> <span>文件: ${escapeHtml(app.filename)}</span></div>
                         <div class="info-line"><i class="fas fa-info-circle"></i> <span>${escapeHtml(app.description)}</span></div>
                     </div>
-                    <!-- 底部长条：每个应用都有，写着“下载”二字 -->
                     <div class="download-bar">
-                        <span class="download-text"><i class="fas fa-arrow-down"></i> 点击获取资源</span>
-                        <button class="download-btn" data-url="${safeUrl}" data-name="${escapeHtml(app.name)}">下 载</button>
+                        <span class="download-text"><i class="fas fa-arrow-down"></i> 从文件夹1下载</span>
+                        <button class="download-btn" data-url="${escapeHtml(app.downloadUrl)}" data-name="${escapeHtml(app.name)}">下 载</button>
                     </div>
                 </div>
             `;
         }
-        appsContainer.innerHTML = html;
-        resultCountSpan.innerHTML = `✨ 共 ${apps.length} 款应用`;
+        container.innerHTML = html;
+        document.getElementById('resultCount').innerHTML = `✨ 共 ${apps.length} 款应用 | 来自「文件夹1」`;
 
-        // 绑定所有下载按钮事件 (动态绑定)
-        const allDownloadBtns = document.querySelectorAll('.download-btn');
-        allDownloadBtns.forEach(btn => {
+        // 绑定下载事件
+        document.querySelectorAll('.download-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const url = btn.getAttribute('data-url');
                 const name = btn.getAttribute('data-name');
-                if (url && url !== '#') {
-                    // 模拟优雅下载，并且不跳转页面，直接触发文件下载
+                if (url) {
                     triggerDownload(url, name);
                 } else {
-                    // 防御性提示
-                    alert('[灵心雨] 该应用下载地址正在准备中，请联系管理员添加文件夹内真实文件。');
+                    showToast('❌ 下载链接无效');
                 }
             });
         });
     }
 
-    // 安全下载函数 (创建隐藏a标签，确保指向外部文件，不下载本html)
+    // 触发下载
     function triggerDownload(url, fileNameHint) {
-        // 为了防止某些浏览器直接预览，强制使用 download 属性但不一定能跨域，但至少会尝试下载/打开另存为
-        // 由于资源来自第三方开源站点，会触发浏览器下载行为，符合“下载应用”逻辑
         const link = document.createElement('a');
         link.href = url;
-        // 设置download属性，让浏览器尝试下载 (部分跨域文件可能仍会导航，但绝大多数zip/exe都会下载)
-        // 提取文件名后缀
-        let ext = url.split('.').pop().split('?')[0];
-        let suggestedName = `${fileNameHint.replace(/[\\/:*?"<>|]/g, '')}.${ext}`;
-        link.download = suggestedName;
+        link.download = '';
         link.target = '_blank';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        // 显示一个轻提醒，让用户感知下载开始
-        showToast(`✨ 开始下载：${fileNameHint}`);
+        showToast(`🌧️ 开始下载：${fileNameHint}`);
     }
 
-    // 简单toast通知 (灵心雨风格)
+    // 搜索功能
+    function performSearch() {
+        const keyword = document.getElementById('searchInput').value.trim().toLowerCase();
+        if (keyword === '') {
+            currentApps = [...allApps];
+        } else {
+            currentApps = allApps.filter(app => {
+                return app.name.toLowerCase().includes(keyword) ||
+                       app.description.toLowerCase().includes(keyword) ||
+                       (app.filename && app.filename.toLowerCase().includes(keyword));
+            });
+        }
+        renderApps(currentApps);
+    }
+
+    function resetSearch() {
+        document.getElementById('searchInput').value = '';
+        currentApps = [...allApps];
+        renderApps(currentApps);
+        showToast('✨ 已显示全部应用');
+    }
+
     function showToast(msg) {
         let toast = document.createElement('div');
         toast.innerText = msg;
-        toast.style.position = 'fixed';
-        toast.style.bottom = '30px';
-        toast.style.left = '50%';
-        toast.style.transform = 'translateX(-50%)';
-        toast.style.backgroundColor = 'rgba(20, 35, 65, 0.9)';
-        toast.style.backdropFilter = 'blur(12px)';
-        toast.style.color = '#d9efff';
-        toast.style.padding = '10px 24px';
-        toast.style.borderRadius = '40px';
-        toast.style.fontSize = '0.85rem';
-        toast.style.fontWeight = '500';
-        toast.style.border = '1px solid #5d9eff';
-        toast.style.zIndex = '9999';
-        toast.style.fontFamily = 'Inter, sans-serif';
-        toast.style.pointerEvents = 'none';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(20, 35, 65, 0.95);
+            backdrop-filter: blur(12px);
+            color: #d9efff;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            border: 1px solid #5d9eff;
+            z-index: 9999;
+            pointer-events: none;
+            white-space: nowrap;
+        `;
         document.body.appendChild(toast);
         setTimeout(() => {
             toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 500);
+            setTimeout(() => toast.remove(), 300);
         }, 2000);
     }
 
-    // 简单防XSS
     function escapeHtml(str) {
         if (!str) return '';
         return str.replace(/[&<>]/g, function(m) {
@@ -628,90 +578,43 @@
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
             return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
         });
     }
 
-    // 搜索匹配逻辑 (基于应用名称、描述、类别，只要输入一个字就对比文件夹目录里的文件名称相似)
-    function performSearch() {
-        let keyword = searchInput.value.trim().toLowerCase();
-        if (keyword === '') {
-            currentApps = [...appsDatabase];
-        } else {
-            // 模糊匹配：比较应用名称(name)、描述、类别中包含关键词的就列出来
-            currentApps = appsDatabase.filter(app => {
-                return app.name.toLowerCase().includes(keyword) ||
-                       app.description.toLowerCase().includes(keyword) ||
-                       app.category.toLowerCase().includes(keyword) ||
-                       app.version.toLowerCase().includes(keyword);
-            });
-        }
-        renderApps(currentApps);
-    }
-
-    // 重置搜索
-    function resetSearch() {
-        searchInput.value = '';
-        currentApps = [...appsDatabase];
-        renderApps(currentApps);
-        showToast('✨ 已显示全部灵心雨应用');
-    }
-
-    // 动态生成雨滴特效和飘浮粒子 (灵心雨特效核心)
+    // 雨滴特效
     function initRainEffect() {
         const rainContainer = document.getElementById('rainContainer');
-        if (!rainContainer) return;
-        // 生成100滴雨
         for (let i = 0; i < 100; i++) {
             const drop = document.createElement('div');
             drop.classList.add('rain-drop');
-            const leftPos = Math.random() * 100;
-            const duration = 1.2 + Math.random() * 2.5; // 1.2~3.7秒
-            const delay = Math.random() * 8;
-            drop.style.left = leftPos + '%';
-            drop.style.animationDuration = duration + 's';
-            drop.style.animationDelay = delay + 's';
-            drop.style.height = (40 + Math.random() * 60) + 'px';
-            drop.style.opacity = 0.3 + Math.random() * 0.5;
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDuration = 1.2 + Math.random() * 2.5 + 's';
+            drop.style.animationDelay = Math.random() * 8 + 's';
+            drop.style.height = 40 + Math.random() * 60 + 'px';
             rainContainer.appendChild(drop);
         }
-        // 生成流光粒子 (光尘)
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 50; i++) {
             const particle = document.createElement('div');
             particle.classList.add('glow-particle');
-            const leftPos = Math.random() * 100;
-            const topPos = Math.random() * 100;
-            particle.style.left = leftPos + '%';
-            particle.style.top = topPos + '%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
             particle.style.animationDuration = 7 + Math.random() * 12 + 's';
             particle.style.animationDelay = Math.random() * 10 + 's';
-            particle.style.animationIterationCount = 'infinite';
             document.body.appendChild(particle);
         }
     }
 
-    // 监听搜索事件
     function bindEvents() {
-        searchBtn.addEventListener('click', performSearch);
-        resetBtn.addEventListener('click', resetSearch);
-        searchInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        document.getElementById('resetBtn').addEventListener('click', resetSearch);
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') performSearch();
         });
     }
 
-    // 初始化页面渲染
-    function init() {
-        initRainEffect();
-        bindEvents();
-        // 初始展示全部应用
-        currentApps = [...appsDatabase];
-        renderApps(currentApps);
-    }
-
-    init();
+    initRainEffect();
+    bindEvents();
+    fetchAppsFromFolder1();
 </script>
 </body>
 </html>
